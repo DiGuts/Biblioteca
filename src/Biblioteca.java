@@ -1,22 +1,20 @@
-package gestio;
+import java.util.ArrayList;
 
-import model.Usuari;
-import model.Publicacio;
+public class Biblioteca {
 
-public class Main {
+    private static ArrayList<Usuari> usuaris = new ArrayList<>();
+    private static ArrayList<Llibre> llibres = new ArrayList<>();
+
     public static void main(String[] args) {
-        Biblioteca biblioteca = new Biblioteca();
+        Usuari usuari1 = new Usuari("2343434", "Joan", "52626323", "carrer 1");
+        Usuari usuari2 = new Usuari("333432", "Maria", "384353943", "carrer 2");
+        usuaris.add(usuari1);
+        usuaris.add(usuari2);
 
-        Usuari usuari1 = new Usuari("Joan");
-        Usuari usuari2 = new Usuari("Maria");
+        Llibre publicacio1 = new Llibre("El Quijote", "1F", "Literatura");
+        Llibre publicacio2 = new Llibre("Cien Años de Soledad", "2C", "Literatura");
+        llibres.add(publicacio1);
+        llibres.add(publicacio2);
 
-        Publicacio publicacio1 = new Publicacio("El Quijote");
-        Publicacio publicacio2 = new Publicacio("Cien Años de Soledad");
-
-        biblioteca.afegirUsuari(usuari1);
-        biblioteca.afegirUsuari(usuari2);
-
-        biblioteca.afegirPublicacio(publicacio1);
-        biblioteca.afegirPublicacio(publicacio2);
     }
 }

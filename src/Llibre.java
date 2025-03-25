@@ -1,17 +1,15 @@
 public class Llibre {
-<<<<<<< Updated upstream
-=======
-    String titol;
-    String codi;
-    String seccio;
-    int stockTotal;
-    boolean disponible;
+    private String titol;
+    private String codi;
+    private String seccio;
+    private static int stockTotal;
+    private boolean disponible;
 
-    public Llibre(String titol, String codi, String seccio, int stockTotal) {
+    public Llibre(String titol, String codi, String seccio) {
         this.titol = titol;
         this.codi = codi;
         this.seccio = seccio;
-        this.stockTotal = stockTotal;
+        stockTotal = stockTotal + 1;
         this.disponible = true;
     }
 
@@ -54,5 +52,4 @@ public class Llibre {
     public void setDisponible(boolean disponible) {
         this.disponible = disponible;
     }
->>>>>>> Stashed changes
 }
