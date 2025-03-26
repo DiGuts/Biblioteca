@@ -3,18 +3,20 @@ import java.util.ArrayList;
 public class Usuari {
 
     //Atributs
-    String dni;
-    String nom;
-    String telefon;
-    String adreca;
-    ArrayList<Llibre> articlesEnPropietat;
+    private String dni;
+    private String nom;
+    private String telefon;
+    private String adreca;
+    private String passwd;
+    private ArrayList<Llibre> articlesEnPropietat;
 
     //Constructor
-    public Usuari(String dni, String nom, String telefon, String adreca){
+    public Usuari(String dni, String nom, String telefon, String adreca, String passwd) {
         this.dni = dni;
         this.nom = nom;
         this.telefon = telefon;
         this.adreca = adreca;
+        this.passwd = passwd;
         this.articlesEnPropietat = new ArrayList<>();
     }
 
@@ -59,6 +61,13 @@ public class Usuari {
         this.articlesEnPropietat = articlesEnPropietat;
     }
 
+    public String getPasswd() {
+        return passwd;
+    }
+
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
+    }
     //Mètodes
 
 
