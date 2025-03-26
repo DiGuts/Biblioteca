@@ -3,11 +3,11 @@ import java.util.ArrayList;
 public class Usuari {
 
     //Atributs
-    String dni;
-    String nom;
-    String telefon;
-    String adreca;
-    ArrayList<Llibre> articlesEnPropietat;
+    private String dni;
+    private String nom;
+    private String telefon;
+    private String adreca;
+    private ArrayList<Llibre> articlesEnPropietat;
 
     //Constructor
     public Usuari(String dni, String nom, String telefon, String adreca){
