@@ -37,12 +37,8 @@ public class Llibre {
         this.seccio = seccio;
     }
 
-    public int getStockTotal() {
+    public static int getStockTotal() {
         return stockTotal;
-    }
-
-    public void setStockTotal(int stockTotal) {
-        this.stockTotal = stockTotal;
     }
 
     public boolean isDisponible() {
@@ -52,4 +48,9 @@ public class Llibre {
     public void setDisponible(boolean disponible) {
         this.disponible = disponible;
     }
+
+    public static void setStockTotal(int stockTotal) {
+        Llibre.stockTotal = stockTotal;
+    }
+
 }
