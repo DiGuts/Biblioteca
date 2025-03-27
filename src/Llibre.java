@@ -52,4 +52,5 @@ public class Llibre {
     public void setDisponible(boolean disponible) {
         this.disponible = disponible;
     }
+
 }

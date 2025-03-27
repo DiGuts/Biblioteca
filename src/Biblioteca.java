@@ -9,18 +9,29 @@ public class Biblioteca {
     private static Usuari actualUser;
 
     public static void main(String[] args) {
-        Llibre llibre1 = new Llibre("El senyor dels anells", "001", "Fantasia");
-        Llibre llibre2 = new Llibre("1984", "002", "Ciència-ficció");
-        Llibre llibre3 = new Llibre("Don Quixot", "003", "Clàssics");
-        llibres.add(llibre1);
-        llibres.add(llibre2);
-        llibres.add(llibre3);
+        demoDataLlibre();
+        demoDataUser();
 
         while (true){
             menuLogin();
             menuReservar();
         }
     }
+
+    private static void demoDataLlibre() {
+        Llibre llibre1 = new Llibre("El senyor dels anells", "001", "Fantasia");
+        Llibre llibre2 = new Llibre("1984", "002", "Ciència-ficció");
+        Llibre llibre3 = new Llibre("Don Quixot", "003", "Clàssics");
+        llibres.add(llibre1);
+        llibres.add(llibre2);
+        llibres.add(llibre3);
+    }
+    private static void demoDataUser() {
+        Usuari u1 = new Usuari("1", "unai", "6555", "major", "1234");
+        Usuari u2 = new Usuari("2", "jan", "6523", "menor", "1234");
+        usuaris.add(u1); usuaris.add(u2);
+    }
+
     private static int registerUser() {
         try {
             Usuari u = new Usuari(input("dni: "),input("nom: "),input("telefon: "),input("dirrecio: "), input("passwd: "));
@@ -105,9 +116,11 @@ public class Biblioteca {
     }
 
     public static int menuLlibresDispo() {
+        int i = 1;
         for (Llibre l : llibres) {
             if (l.isDisponible()){
-                System.out.println(" - " + l.getTitol());
+                System.out.println(" " + i +" .- " + l.getTitol());
+                i++;
             }
         }
         return Integer.parseInt(input("Quin llibre vols reservar? "));
