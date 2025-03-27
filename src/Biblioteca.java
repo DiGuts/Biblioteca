@@ -5,11 +5,21 @@ public class Biblioteca {
     private static Scanner sc = new Scanner(System.in);
     private static ArrayList<Usuari> usuaris = new ArrayList<>();
     private static ArrayList<Llibre> llibres = new ArrayList<>();
+    private static ArrayList<Reserva> reserves = new ArrayList<>();
     private static Usuari actualUser;
 
     public static void main(String[] args) {
-        menuLogin();
-        menuReservar();
+        Llibre llibre1 = new Llibre("El senyor dels anells", "001", "Fantasia");
+        Llibre llibre2 = new Llibre("1984", "002", "Ciència-ficció");
+        Llibre llibre3 = new Llibre("Don Quixot", "003", "Clàssics");
+        llibres.add(llibre1);
+        llibres.add(llibre2);
+        llibres.add(llibre3);
+
+        while (true){
+            menuLogin();
+            menuReservar();
+        }
     }
     private static int registerUser() {
         try {
@@ -73,23 +83,51 @@ public class Biblioteca {
             System.out.println("1. Reservar llibre");
             System.out.println("2. Consultar reserves");
             //si es admin o bibliotecari hauria de printejar mes opcions.
-            System.out.println("0. Sortir");
+            System.out.println("0. Tencar sessio");
 
             String menuOpcio = input("Escull una opció: ");
             switch (menuOpcio) {
                 case "1":
-                    //Reservar Llibre
+                    reservar();
                     break;
                 case "2":
-                    //Consultar reserves fetes.
+                    for (Reserva r : reserves) {
+                        if (r.getUsuari().equals(actualUser)) {
+                            System.out.println(r.getLlibre().getTitol());
+                        }
+                    }
                     break;
                 case "0":
-                    System.exit(0);
+                    menu = false;
+                    break;
             }
         }
+    }
+
+    public static int menuLlibresDispo() {
+        for (Llibre l : llibres) {
+            if (l.isDisponible()){
+                System.out.println(" - " + l.getTitol());
+            }
+        }
+        return Integer.parseInt(input("Quin llibre vols reservar? "));
+    }
+
+    public static void reservar() {
+        int index = menuLlibresDispo() - 1;
+        Llibre l = llibres.get(index);
+        Reserva n = new Reserva(l, actualUser);
+
+        l.setDisponible(false);
+        reserves.add(n);
+
+        // Moure el llibre reservat al final de la llista
+        llibres.remove(index);
+        llibres.add(l);
     }
 
     private static String input(String m) {
         System.out.print(m); return sc.nextLine();
     }
+
 }
