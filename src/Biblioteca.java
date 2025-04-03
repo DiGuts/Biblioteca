@@ -14,7 +14,7 @@ public class Biblioteca {
 
         while (true){
             menuLogin();
-            menuReservar();
+            menuUsuariBasic();
         }
     }
 
@@ -44,7 +44,6 @@ public class Biblioteca {
             return 0;
         }
     }
-
     private static int loginUser() {
         try {
             String usr = input("dni usuari: ");
@@ -61,6 +60,7 @@ public class Biblioteca {
         }
     }
 
+    
     private static void menuLogin() {
         boolean sessioIniciada = false;
         while (!sessioIniciada) {
@@ -87,7 +87,8 @@ public class Biblioteca {
         }
     }
 
-    private static void menuReservar() {
+
+    private static void menuUsuariBasic() {
         boolean menu = true;
         while (menu) {
             System.out.println("\n--- Menú Biblioteca ---");
@@ -115,7 +116,7 @@ public class Biblioteca {
         }
     }
 
-    public static int menuLlibresDispo() {
+    public static int printLlibresDispo() {
         int i = 1;
         for (Llibre l : llibres) {
             if (l.isDisponible()){
@@ -127,16 +128,17 @@ public class Biblioteca {
     }
 
     public static void reservar() {
-        int index = menuLlibresDispo() - 1;
+        int index = printLlibresDispo() - 1;
         Llibre l = llibres.get(index);
-        Reserva n = new Reserva(l, actualUser);
-
-        l.setDisponible(false);
-        reserves.add(n);
-
-        // Moure el llibre reservat al final de la llista
-        llibres.remove(index);
-        llibres.add(l);
+        if (l.isDisponible()) {
+            Reserva n = new Reserva(l, actualUser);
+            l.setDisponible(false);
+            reserves.add(n);
+            // Moure el llibre reservat al final de la llista
+            llibres.remove(index);
+            llibres.add(l);
+        }
+        else System.out.println("Aricle inexistent o no disponible");
     }
 
     private static String input(String m) {
