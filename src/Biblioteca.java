@@ -1,3 +1,7 @@
+import Users.Admin;
+import Users.Usuari;
+
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,7 +18,7 @@ public class Biblioteca {
 
         while (true){
             menuLogin();
-            menuUsuariBasic();
+            menu();
         }
     }
 
@@ -29,7 +33,8 @@ public class Biblioteca {
     private static void demoDataUser() {
         Usuari u1 = new Usuari("1", "unai", "6555", "major", "1234");
         Usuari u2 = new Usuari("2", "jan", "6523", "menor", "1234");
-        usuaris.add(u1); usuaris.add(u2);
+        Admin a1 = new Admin("3", "jaume", "343434", "mitja", "1234");
+        usuaris.add(u1); usuaris.add(u2); usuaris.add(a1);
     }
 
     private static int registerUser() {
@@ -60,7 +65,7 @@ public class Biblioteca {
         }
     }
 
-    
+
     private static void menuLogin() {
         boolean sessioIniciada = false;
         while (!sessioIniciada) {
@@ -88,30 +93,55 @@ public class Biblioteca {
     }
 
 
-    private static void menuUsuariBasic() {
+    private static void menu() {
         boolean menu = true;
         while (menu) {
-            System.out.println("\n--- Menú Biblioteca ---");
-            System.out.println("1. Reservar llibre");
-            System.out.println("2. Consultar reserves");
-            //si es admin o bibliotecari hauria de printejar mes opcions.
-            System.out.println("0. Tencar sessio");
+            actualUser.menu();
 
             String menuOpcio = input("Escull una opció: ");
-            switch (menuOpcio) {
-                case "1":
-                    reservar();
-                    break;
-                case "2":
-                    for (Reserva r : reserves) {
-                        if (r.getUsuari().equals(actualUser)) {
-                            System.out.println(r.getLlibre().getTitol());
+            if (actualUser.getType().equals("Admin")) {
+                switch (menuOpcio) {
+                    case "1":
+//                        modificarReserves();
+                        System.out.println("RESERVA MODIFICADA");
+                        break;
+                    case "2":
+//                        consultarReserves();
+                        System.out.println("AQUI TENS LA RESERVA...");
+                        break;
+                    case "3":
+//                        eliminarPublicacio();
+                        System.out.println("PUBLICACIO ELIMINADA");
+                        break;
+                    case "4":
+//                        afegirPublicacio();
+                        System.out.println("PUBLICACIO AFEGIDA");
+                        break;
+                    case "0":
+                        System.out.println("TENCANT SESSIO...");
+                        menu = false;
+                        break;
+                    default:
+                        System.out.println("Opció no vàlida.");
+                }
+            }
+            else if (actualUser.getType().equals("User")) {
+                switch (menuOpcio) {
+                    case "1":
+                        reservar();
+                        break;
+                    case "2":
+                        for (Reserva r : reserves) {
+                            if (r.getUsuari().equals(actualUser)) {
+                                System.out.println(r.getLlibre().getTitol());
+                            }
                         }
-                    }
-                    break;
-                case "0":
-                    menu = false;
-                    break;
+                        break;
+                    case "0":
+                        System.out.println("TENCANT SESSIO...");
+                        menu = false;
+                        break;
+                }
             }
         }
     }
@@ -141,7 +171,7 @@ public class Biblioteca {
         else System.out.println("Aricle inexistent o no disponible");
     }
 
-    private static String input(String m) {
+    public static String input(String m) {
         System.out.print(m); return sc.nextLine();
     }
 
