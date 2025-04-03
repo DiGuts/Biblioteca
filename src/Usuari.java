@@ -8,7 +8,6 @@ public class Usuari {
     private String telefon;
     private String adreca;
     private String passwd;
-    private ArrayList<Llibre> articlesEnPropietat;
 
     //Constructor
     public Usuari(String dni, String nom, String telefon, String adreca, String passwd) {
@@ -17,7 +16,6 @@ public class Usuari {
         this.telefon = telefon;
         this.adreca = adreca;
         this.passwd = passwd;
-        this.articlesEnPropietat = new ArrayList<>();
     }
 
     //Getters & setters
@@ -51,14 +49,6 @@ public class Usuari {
 
     public void setAdreca(String adreca) {
         this.adreca = adreca;
-    }
-
-    public ArrayList<Llibre> getArticlesEnPropietat() {
-        return articlesEnPropietat;
-    }
-
-    public void setArticlesEnPropietat(ArrayList<Llibre> articlesEnPropietat) {
-        this.articlesEnPropietat = articlesEnPropietat;
     }
 
     public String getPasswd() {

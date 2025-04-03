@@ -3,9 +3,9 @@ import java.util.Scanner;
 
 public class Biblioteca {
     private static Scanner sc = new Scanner(System.in);
-    static ArrayList<Usuari> usuaris = new ArrayList<>();
-    static ArrayList<Llibre> llibres = new ArrayList<>();
-    static ArrayList<Reserva> reserves = new ArrayList<>();
+    private static ArrayList<Usuari> usuaris = new ArrayList<>();
+    private static ArrayList<Llibre> llibres = new ArrayList<>();
+    private static ArrayList<Reserva> reserves = new ArrayList<>();
     private static Usuari actualUser;
 
     public static void main(String[] args) {
@@ -14,13 +14,14 @@ public class Biblioteca {
 
         while (true){
             menuLogin();
-            menuReservar();
+            menuUsuariBasic();
         }
     }
 
     private static void demoDataLlibre() {
         Llibre llibre1 = new Llibre("El senyor dels anells", "001", "Fantasia");
-        Llibre llibre2 = new Llibre("1984", "002"0'Llibre llibre3 = new Llibre("Don Quixot", "003", "Clàssics");
+        Llibre llibre2 = new Llibre("1984", "002", "Ciència-ficció");
+        Llibre llibre3 = new Llibre("Don Quixot", "003", "Clàssics");
         llibres.add(llibre1);
         llibres.add(llibre2);
         llibres.add(llibre3);
@@ -28,10 +29,7 @@ public class Biblioteca {
     private static void demoDataUser() {
         Usuari u1 = new Usuari("1", "unai", "6555", "major", "1234");
         Usuari u2 = new Usuari("2", "jan", "6523", "menor", "1234");
-        Usuari admin = new Usuari("admin", "Administrador", "0000", "biblioteca", "admin123");
-        usuaris.add(u1);
-        usuaris.add(u2);
-        usuaris.add(admin);
+        usuaris.add(u1); usuaris.add(u2);
     }
 
     private static int registerUser() {
@@ -46,7 +44,6 @@ public class Biblioteca {
             return 0;
         }
     }
-
     private static int loginUser() {
         try {
             String usr = input("dni usuari: ");
@@ -63,6 +60,7 @@ public class Biblioteca {
         }
     }
 
+    
     private static void menuLogin() {
         boolean sessioIniciada = false;
         while (!sessioIniciada) {
@@ -89,18 +87,15 @@ public class Biblioteca {
         }
     }
 
-    private static void menuReservar() {
+
+    private static void menuUsuariBasic() {
         boolean menu = true;
         while (menu) {
             System.out.println("\n--- Menú Biblioteca ---");
             System.out.println("1. Reservar llibre");
             System.out.println("2. Consultar reserves");
-
-            if (esAdmin()) {
-                System.out.println("3. Menú d'administrador");
-            }
-
-            System.out.println("0. Tancar sessió");
+            //si es admin o bibliotecari hauria de printejar mes opcions.
+            System.out.println("0. Tencar sessio");
 
             String menuOpcio = input("Escull una opció: ");
             switch (menuOpcio) {
@@ -114,21 +109,14 @@ public class Biblioteca {
                         }
                     }
                     break;
-                case "3":
-                    if (esAdmin()) {
-                        AdminMenu.mostrarMenuAdmin();
-                    }
-                    break;
                 case "0":
                     menu = false;
                     break;
-                default:
-                    System.out.println("Opció no vàlida.");
             }
         }
     }
 
-    public static int menuLlibresDispo() {
+    public static int printLlibresDispo() {
         int i = 1;
         for (Llibre l : llibres) {
             if (l.isDisponible()){
@@ -139,51 +127,22 @@ public class Biblioteca {
         return Integer.parseInt(input("Quin llibre vols reservar? "));
     }
 
-    private static void menuReservar() {
-        boolean menu = true;
-        while (menu) {
-            System.out.println("\n--- Menú Biblioteca ---");
-            System.out.println("1. Reservar llibre");
-            System.out.println("2. Consultar reserves");
-
-            // Mostrar opcions d'admin si l'usuari és admin
-            if (esAdmin()) {
-                System.out.println("3. Menú d'administrador");
-            }
-
-            System.out.println("0. Tancar sessió");
-
-            String menuOpcio = input("Escull una opció: ");
-            switch (menuOpcio) {
-                case "1":
-                    reservar();
-                    break;
-                case "2":
-                    for (Reserva r : reserves) {
-                        if (r.getUsuari().equals(actualUser)) {
-                            System.out.println(r.getLlibre().getTitol());
-                        }
-                    }
-                    break;
-                case "3":
-                    if (esAdmin()) {
-                        AdminMenu.mostrarMenuAdmin();
-                    }
-                    break;
-                case "0":
-                    menu = false;
-                    break;
-                default:
-                    System.out.println("Opció no vàlida.");
-            }
+    public static void reservar() {
+        int index = printLlibresDispo() - 1;
+        Llibre l = llibres.get(index);
+        if (l.isDisponible()) {
+            Reserva n = new Reserva(l, actualUser);
+            l.setDisponible(false);
+            reserves.add(n);
+            // Moure el llibre reservat al final de la llista
+            llibres.remove(index);
+            llibres.add(l);
         }
+        else System.out.println("Aricle inexistent o no disponible");
     }
 
-    static String input(String m) {
+    private static String input(String m) {
         System.out.print(m); return sc.nextLine();
     }
 
-    private static boolean esAdmin() {
-        return actualUser != null && actualUser.getDni().equals("admin");
-    }
 }
