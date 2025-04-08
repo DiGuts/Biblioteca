@@ -71,4 +71,22 @@ public class AdminMenu {
             System.out.println("2. Canviar llibre");
             System.out.println("3. Canviar dates");
 
+            String opcio = Biblioteca.input("Escull què vols modificar: ");
+            switch (opcio) {
+                case "1":
+                    canviarUsuariReserva(reserva);
+                    break;
+                case "2":
+                    canviarLlibreReserva(reserva);
+                    break;
+                case "3":
+                    canviarDatesReserva(reserva);
+                    break;
+                default:
+                    System.out.println("Opció no vàlida.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Has d'introduir un número.");
+        }
+    }
 
