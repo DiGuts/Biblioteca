@@ -61,3 +61,14 @@ public class AdminMenu {
                 System.out.println("Número de reserva invàlid.");
                 return;
             }
+
+
+            Reserva reserva = Biblioteca.reserves.get(index);
+
+
+            System.out.println("\nOpcions de modificació:");
+            System.out.println("1. Canviar usuari");
+            System.out.println("2. Canviar llibre");
+            System.out.println("3. Canviar dates");
+
+
