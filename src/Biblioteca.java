@@ -52,9 +52,24 @@ public class Biblioteca {
         Llibre llibre1 = new Llibre("El senyor dels anells", "001", "Fantasia");
         Llibre llibre2 = new Llibre("1984", "002", "Ciència-ficció");
         Llibre llibre3 = new Llibre("Don Quixot", "003", "Clàssics");
+        Llibre llibre4 = new Llibre("Harry Potter i la pedra filosofal", "004", "Fantasia");
+        Llibre llibre5 = new Llibre("Crim i càstig", "005", "Clàssics");
+        Llibre llibre6 = new Llibre("Orgull i prejudici", "006", "Romàntic");
+        Llibre llibre7 = new Llibre("El codi Da Vinci", "007", "Misteri");
+        Llibre llibre8 = new Llibre("Dune", "008", "Ciència-ficció");
+        Llibre llibre9 = new Llibre("El Petit Príncep", "009", "Ficció");
+        Llibre llibre10 = new Llibre("La sombra del viento", "010", "Drama");
+
         llibres.add(llibre1);
         llibres.add(llibre2);
         llibres.add(llibre3);
+        llibres.add(llibre4);
+        llibres.add(llibre5);
+        llibres.add(llibre6);
+        llibres.add(llibre7);
+        llibres.add(llibre8);
+        llibres.add(llibre9);
+        llibres.add(llibre10);
     }
     private static void demoDataUser() {
         Usuari u1 = new Usuari("1", "unai", "6555", "major", "1234");
