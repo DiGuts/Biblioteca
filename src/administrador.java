@@ -89,5 +89,15 @@ public class AdminMenu {
             System.out.println("Has d'introduir un número.");
         }
     }
+    private static void canviarUsuariReserva(Reserva reserva) {
+        System.out.println("\nUsuaris disponibles:");
+        for (int i = 0; i < Biblioteca.usuaris.size(); i++) {
+            System.out.printf("%d. %s (DNI: %s)\n",
+                    i + 1,
+                    Biblioteca.usuaris.get(i).getNom(),
+                    Biblioteca.usuaris.get(i).getDni());
+        }
+
+
 
 
