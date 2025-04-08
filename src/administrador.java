@@ -88,5 +88,6 @@ public class AdminMenu {
         } catch (NumberFormatException e) {
             System.out.println("Has d'introduir un número.");
         }
+
     }
 
