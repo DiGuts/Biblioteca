@@ -44,3 +44,20 @@ public class AdminMenu {
             return;
         }
 
+        for (int i = 0; i < Biblioteca.reserves.size(); i++) {
+            Reserva r = Biblioteca.reserves.get(i);
+            System.out.printf("%d. %s - %s (De %s a %s)\n",
+                    i + 1,
+                    r.getUsuari().getNom(),
+                    r.getLlibre().getTitol(),
+                    r.getDataInici(),
+                    r.getDataFi());
+        }
+
+
+        try {
+            int index = Integer.parseInt(Biblioteca.input("Selecciona el número de reserva a modificar: ")) - 1;
+            if (index < 0 || index >= Biblioteca.reserves.size()) {
+                System.out.println("Número de reserva invàlid.");
+                return;
+            }
