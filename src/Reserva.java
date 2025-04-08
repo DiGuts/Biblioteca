@@ -1,3 +1,5 @@
+import Users.Usuari;
+
 import java.time.LocalDate;
 
 public class Reserva {

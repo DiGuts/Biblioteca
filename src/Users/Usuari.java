@@ -1,13 +1,14 @@
-import java.util.ArrayList;
+package Users;
 
 public class Usuari {
 
     //Atributs
-    private String dni;
-    private String nom;
-    private String telefon;
-    private String adreca;
-    private String passwd;
+    protected String dni;
+    protected String nom;
+    protected String telefon;
+    protected String adreca;
+    protected String passwd;
+    protected int type;
 
     //Constructor
     public Usuari(String dni, String nom, String telefon, String adreca, String passwd) {
@@ -16,6 +17,7 @@ public class Usuari {
         this.telefon = telefon;
         this.adreca = adreca;
         this.passwd = passwd;
+        this.type = 2;
     }
 
     //Getters & setters
@@ -60,5 +62,24 @@ public class Usuari {
     }
     //Mètodes
 
+    public String getType() {
+        if (this.type == 0) {
+            return "Admin";
+        }
+        else if (this.type == 1) {
+            return "Biblio";
+        }
+        else {
+            return "User";
+        }
+    }
+
+    public void menu() {
+        System.out.println("\n--- Menú Biblioteca ---");
+        System.out.println("1. Reservar llibre");
+        System.out.println("2. Consultar reserves");
+        //si es admin o bibliotecari hauria de printejar mes opcions.
+        System.out.println("0. Tencar sessio");
+    }
 
 }
