@@ -53,4 +53,9 @@ public class Llibre {
         this.disponible = disponible;
     }
 
+    @Override
+    public String toString() {
+        return "\nTitol: " + titol + "\nCodi: " + codi + "\nSeccio: " + seccio;
+    }
+
 }

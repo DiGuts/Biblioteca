@@ -1,7 +1,6 @@
 import Users.Admin;
 import Users.Usuari;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,15 +11,42 @@ public class Biblioteca {
     private static ArrayList<Reserva> reserves = new ArrayList<>();
     private static Usuari actualUser;
 
+
+    public static ArrayList<Llibre> getLlibres() {
+        return llibres;
+    }
+    public static void setLlibres(ArrayList<Llibre> llibres) {
+        Biblioteca.llibres = llibres;
+    }
+    public static Llibre getLlibreById(String id) {
+        for (Llibre l : llibres) {
+            if (l.getCodi().equals(id)) {
+                return l;
+            }
+        }
+        return null;
+    }
+    public static Usuari getUsuariById(String dni) {
+        for (Usuari u : usuaris) {
+            if (u.getDni().equals(dni)) {
+                return u;
+            }
+        }
+        return null;
+    }
+
+
     public static void main(String[] args) {
         demoDataLlibre();
         demoDataUser();
+        demoDataReserva();
 
         while (true){
             menuLogin();
             menu();
         }
     }
+
 
     private static void demoDataLlibre() {
         Llibre llibre1 = new Llibre("El senyor dels anells", "001", "Fantasia");
@@ -36,6 +62,13 @@ public class Biblioteca {
         Admin a1 = new Admin("3", "jaume", "343434", "mitja", "1234");
         usuaris.add(u1); usuaris.add(u2); usuaris.add(a1);
     }
+    private static void demoDataReserva() {
+        Reserva r1 = new Reserva(llibres.get(0), usuaris.get(0));
+        Reserva r2 = new Reserva(llibres.get(1), usuaris.get(1));
+        Reserva r3 = new Reserva(llibres.get(2), usuaris.get(0));
+        reserves.add(r1); reserves.add(r2); reserves.add(r3);
+    }
+
 
     private static int registerUser() {
         try {
@@ -102,11 +135,13 @@ public class Biblioteca {
             if (actualUser.getType().equals("Admin")) {
                 switch (menuOpcio) {
                     case "1":
-//                        modificarReserves();
+                        modificarReserves();
                         System.out.println("RESERVA MODIFICADA");
                         break;
                     case "2":
-//                        consultarReserves();
+                        for (Reserva r : reserves) {
+                            System.out.println(" .- " + r.toString());
+                        }
                         System.out.println("AQUI TENS LA RESERVA...");
                         break;
                     case "3":
@@ -146,15 +181,39 @@ public class Biblioteca {
         }
     }
 
+    public static void modificarReserves(){
+        int index = printReserves() - 1;
+        Reserva r = reserves.get(index);
+        r.modificarReserva();
+    }
+
     public static int printLlibresDispo() {
         int i = 1;
         for (Llibre l : llibres) {
             if (l.isDisponible()){
-                System.out.println(" " + i +" .- " + l.getTitol());
+                System.out.println(" " + i +" .- " + l);
                 i++;
             }
         }
         return Integer.parseInt(input("Quin llibre vols reservar? "));
+    }
+    public static void printLlibresById(){
+        for (Llibre l : llibres) {
+            System.out.println(l.toString());
+        }
+    }
+    public static int printReserves() {
+        int i = 1;
+        for (Reserva r : reserves) {
+            System.out.println(" " + i +" .- " + r.toString());
+            i++;
+        }
+        return Integer.parseInt(input("Quina reserva vols modificar? "));
+    }
+    public static void printUsuarisById(){
+        for (Usuari u : usuaris) {
+            System.out.println(u.getNom() + " | dni: " + u.getDni());
+        }
     }
 
     public static void reservar() {
@@ -174,5 +233,6 @@ public class Biblioteca {
     public static String input(String m) {
         System.out.print(m); return sc.nextLine();
     }
+
 
 }
