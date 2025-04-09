@@ -70,12 +70,12 @@ public class Reserva {
     }
 
     public String consultaUser(){
-        return id + " | Llibre: " + llibre.getTitol() + "\n\t\tData inici:" + dataInici + "\n\t\tData fi:" + dataFi + "\n";
+        return " | Llibre: " + llibre.getTitol() + "\n\t\tData inici:" + dataInici + "\n\t\tData fi:" + dataFi + "\n";
     }
 
     public void modificarReserva() {
         Biblioteca.printLlibresById();
-        this.llibre = Biblioteca.getLlibreByCodi(Biblioteca.input("Id llibre: "));
+        this.llibre = Biblioteca.getLlibreByCodi(Integer.parseInt(Biblioteca.input("Id llibre: ")));
         Biblioteca.printUsuarisById();
         this.usuari = Biblioteca.getUsuariById(Biblioteca.input("Dni usuari: "));
     }

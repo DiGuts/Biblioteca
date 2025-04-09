@@ -185,7 +185,7 @@ public class Biblioteca {
                     case "2":
                         for (Reserva r : reserves) {
                             if (r.getUsuari().equals(actualUser)) {
-                                System.out.println(r.getLlibre().getTitol());
+                                System.out.println(r.consultaUser());
                             }
                         }
                         break;
