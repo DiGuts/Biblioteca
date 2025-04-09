@@ -1,14 +1,19 @@
 import Users.Usuari;
 
 import java.time.LocalDate;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Reserva {
+    private static final AtomicInteger generadorId = new AtomicInteger(1);
+    private int id;
     private Llibre llibre;
     private Usuari usuari;
     private LocalDate dataInici;
     private LocalDate dataFi;
 
     public Reserva(Llibre llibre, Usuari usuari) {
+        Biblioteca.getLlibreByCodi(llibre.getCodi()).setDisponible(false);
+        this.id = generadorId.getAndIncrement();
         this.llibre = llibre;
         this.usuari = usuari;
         // Assignar la data actual
@@ -16,6 +21,14 @@ public class Reserva {
 
         // Calcular la data de fi (3 mesos després)
         this.dataFi = dataInici.plusMonths(3);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Llibre getLlibre() {
@@ -52,14 +65,18 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "\nLlibre: " + llibre.getTitol() + "\nUsuari:" + usuari.getNom()
-                + "\nData inici:" + dataInici + "\nData fi:" + dataFi + "\n";
+        return id + " | Llibre: " + llibre.getTitol() + "\n\t\tUsuari:" + usuari.getNom()
+                + "\n\t\tData inici:" + dataInici + "\n\t\tData fi:" + dataFi + "\n";
+    }
+
+    public String consultaUser(){
+        return id + " | Llibre: " + llibre.getTitol() + "\n\t\tData inici:" + dataInici + "\n\t\tData fi:" + dataFi + "\n";
     }
 
     public void modificarReserva() {
         Biblioteca.printLlibresById();
-        this.llibre = Biblioteca.getLlibreById(Biblioteca.input("Id llibre: "));
+        this.llibre = Biblioteca.getLlibreByCodi(Biblioteca.input("Id llibre: "));
         Biblioteca.printUsuarisById();
-        this.usuari = Biblioteca.getUsuariById(Biblioteca.input("Id usuari: "));
+        this.usuari = Biblioteca.getUsuariById(Biblioteca.input("Dni usuari: "));
     }
 }

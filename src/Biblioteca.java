@@ -6,21 +6,15 @@ import java.util.Scanner;
 
 public class Biblioteca {
     private static Scanner sc = new Scanner(System.in);
-    private static ArrayList<Usuari> usuaris = new ArrayList<>();
-    private static ArrayList<Llibre> llibres = new ArrayList<>();
-    private static ArrayList<Reserva> reserves = new ArrayList<>();
+    private static final ArrayList<Usuari> usuaris = new ArrayList<>();
+    private static final ArrayList<Llibre> llibres = new ArrayList<>();
+    private static final ArrayList<Reserva> reserves = new ArrayList<>();
     private static Usuari actualUser;
 
 
-    public static ArrayList<Llibre> getLlibres() {
-        return llibres;
-    }
-    public static void setLlibres(ArrayList<Llibre> llibres) {
-        Biblioteca.llibres = llibres;
-    }
-    public static Llibre getLlibreById(String id) {
+    public static Llibre getLlibreByCodi(int id) {
         for (Llibre l : llibres) {
-            if (l.getCodi().equals(id)) {
+            if (l.getCodi() == id) {
                 return l;
             }
         }
@@ -30,6 +24,14 @@ public class Biblioteca {
         for (Usuari u : usuaris) {
             if (u.getDni().equals(dni)) {
                 return u;
+            }
+        }
+        return null;
+    }
+    public static Reserva getReservaById(int id) {
+        for (Reserva r : reserves) {
+            if (r.getId() == id) {
+                return r;
             }
         }
         return null;
@@ -49,16 +51,16 @@ public class Biblioteca {
 
 
     private static void demoDataLlibre() {
-        Llibre llibre1 = new Llibre("El senyor dels anells", "001", "Fantasia");
-        Llibre llibre2 = new Llibre("1984", "002", "Ciència-ficció");
-        Llibre llibre3 = new Llibre("Don Quixot", "003", "Clàssics");
-        Llibre llibre4 = new Llibre("Harry Potter i la pedra filosofal", "004", "Fantasia");
-        Llibre llibre5 = new Llibre("Crim i càstig", "005", "Clàssics");
-        Llibre llibre6 = new Llibre("Orgull i prejudici", "006", "Romàntic");
-        Llibre llibre7 = new Llibre("El codi Da Vinci", "007", "Misteri");
-        Llibre llibre8 = new Llibre("Dune", "008", "Ciència-ficció");
-        Llibre llibre9 = new Llibre("El Petit Príncep", "009", "Ficció");
-        Llibre llibre10 = new Llibre("La sombra del viento", "010", "Drama");
+        Llibre llibre1 = new Llibre("El senyor dels anells", "Fantasia");
+        Llibre llibre2 = new Llibre("1984","Ciència-ficció");
+        Llibre llibre3 = new Llibre("Don Quixot", "Clàssics");
+        Llibre llibre4 = new Llibre("Harry Potter i la pedra filosofal",  "Fantasia");
+        Llibre llibre5 = new Llibre("Crim i càstig",  "Clàssics");
+        Llibre llibre6 = new Llibre("Orgull i prejudici","Romàntic");
+        Llibre llibre7 = new Llibre("El codi Da Vinci","Misteri");
+        Llibre llibre8 = new Llibre("Dune","Ciència-ficció");
+        Llibre llibre9 = new Llibre("El Petit Príncep","Ficció");
+        Llibre llibre10 = new Llibre("La sombra del viento", "Drama");
 
         llibres.add(llibre1);
         llibres.add(llibre2);
@@ -197,33 +199,30 @@ public class Biblioteca {
     }
 
     public static void modificarReserves(){
-        int index = printReserves() - 1;
-        Reserva r = reserves.get(index);
+        String id = printReserves();
+        Reserva r = getReservaById(Integer.parseInt(id));
+        assert r != null;
         r.modificarReserva();
     }
 
     public static int printLlibresDispo() {
-        int i = 1;
         for (Llibre l : llibres) {
             if (l.isDisponible()){
-                System.out.println(" " + i +" .- " + l);
-                i++;
+                System.out.println(l);
             }
         }
-        return Integer.parseInt(input("Quin llibre vols reservar? "));
+        return Integer.parseInt(input("Quin llibre vols reservar? (codi): "));
     }
     public static void printLlibresById(){
         for (Llibre l : llibres) {
             System.out.println(l.toString());
         }
     }
-    public static int printReserves() {
-        int i = 1;
+    public static String printReserves() {
         for (Reserva r : reserves) {
-            System.out.println(" " + i +" .- " + r.toString());
-            i++;
+            System.out.println( r.toString());
         }
-        return Integer.parseInt(input("Quina reserva vols modificar? "));
+        return input("Quina reserva vols modificar? (id) ");
     }
     public static void printUsuarisById(){
         for (Usuari u : usuaris) {
@@ -232,15 +231,12 @@ public class Biblioteca {
     }
 
     public static void reservar() {
-        int index = printLlibresDispo() - 1;
-        Llibre l = llibres.get(index);
+        int codi = printLlibresDispo();
+        Llibre l = getLlibreByCodi(codi);
+        assert l != null;
         if (l.isDisponible()) {
             Reserva n = new Reserva(l, actualUser);
-            l.setDisponible(false);
             reserves.add(n);
-            // Moure el llibre reservat al final de la llista
-            llibres.remove(index);
-            llibres.add(l);
         }
         else System.out.println("Aricle inexistent o no disponible");
     }

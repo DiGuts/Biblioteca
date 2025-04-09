@@ -1,13 +1,16 @@
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Llibre {
+    private static final AtomicInteger generadorCodi = new AtomicInteger(1);
     private String titol;
-    private String codi;
+    private int codi;
     private String seccio;
     private static int stockTotal;
     private boolean disponible;
 
-    public Llibre(String titol, String codi, String seccio) {
+    public Llibre(String titol, String seccio) {
         this.titol = titol;
-        this.codi = codi;
+        this.codi = generadorCodi.getAndIncrement();
         this.seccio = seccio;
         stockTotal = stockTotal + 1;
         this.disponible = true;
@@ -21,11 +24,11 @@ public class Llibre {
         this.titol = titol;
     }
 
-    public String getCodi() {
+    public int getCodi() {
         return codi;
     }
 
-    public void setCodi(String codi) {
+    public void setCodi(int codi) {
         this.codi = codi;
     }
 
@@ -55,7 +58,7 @@ public class Llibre {
 
     @Override
     public String toString() {
-        return "\nTitol: " + titol + "\nCodi: " + codi + "\nSeccio: " + seccio;
+        return "\nCodi: " + codi + " | Titol: " + titol +  " | Seccio: " + seccio;
     }
 
 }
