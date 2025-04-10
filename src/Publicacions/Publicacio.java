@@ -47,7 +47,11 @@ public abstract class Publicacio {
     public void setDisponible(boolean disponible) {
         this.disponible = disponible;
     }
-
+    public String getTipus() {
+        if (this instanceof Llibre) return "Llibre";
+        else if (this instanceof CD) return "CD";
+        else return "DVD";
+    }
     @Override
     public abstract String toString();
 

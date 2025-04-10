@@ -66,12 +66,12 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return id + " | Llibre: " + publicacio.getTitol() + "\n\t\tUsuari:" + usuari.getNom()
+        return publicacio.getTipus()  + ": " + id + " | Llibre: " + publicacio.getTitol() + "\n\t\tUsuari:" + usuari.getNom()
                 + "\n\t\tData inici:" + dataInici + "\n\t\tData fi:" + dataFi + "\n";
     }
 
     public String consultaUser(){
-        return " | Llibre: " + publicacio.getTitol() + "\n\t\tData inici:" + dataInici + "\n\t\tData fi:" + dataFi + "\n";
+        return publicacio.getTipus()  + ": " + " | Llibre: " + publicacio.getTitol() + "\n\t\tData inici:" + dataInici + "\n\t\tData fi:" + dataFi + "\n";
     }
 
     public void modificarReserva() {
