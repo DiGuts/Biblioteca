@@ -1,3 +1,4 @@
+import Publicacions.*;
 import Users.Admin;
 import Users.Usuari;
 
@@ -7,13 +8,13 @@ import java.util.Scanner;
 public class Biblioteca {
     private static Scanner sc = new Scanner(System.in);
     private static final ArrayList<Usuari> usuaris = new ArrayList<>();
-    private static final ArrayList<Llibre> llibres = new ArrayList<>();
+    private static final ArrayList<Publicacio> publicacions = new ArrayList<>();
     private static final ArrayList<Reserva> reserves = new ArrayList<>();
     private static Usuari actualUser;
 
 
-    public static Llibre getLlibreByCodi(int id) {
-        for (Llibre l : llibres) {
+    public static Publicacio getPubliacacioByCodi(int id) {
+        for (Publicacio l : publicacions) {
             if (l.getCodi() == id) {
                 return l;
             }
@@ -39,7 +40,7 @@ public class Biblioteca {
 
 
     public static void main(String[] args) {
-        demoDataLlibre();
+        demoDataPublicacions();
         demoDataUser();
         demoDataReserva();
 
@@ -50,28 +51,52 @@ public class Biblioteca {
     }
 
 
-    private static void demoDataLlibre() {
-        Llibre llibre1 = new Llibre("El senyor dels anells", "Fantasia");
-        Llibre llibre2 = new Llibre("1984","Ciència-ficció");
-        Llibre llibre3 = new Llibre("Don Quixot", "Clàssics");
-        Llibre llibre4 = new Llibre("Harry Potter i la pedra filosofal",  "Fantasia");
-        Llibre llibre5 = new Llibre("Crim i càstig",  "Clàssics");
-        Llibre llibre6 = new Llibre("Orgull i prejudici","Romàntic");
-        Llibre llibre7 = new Llibre("El codi Da Vinci","Misteri");
-        Llibre llibre8 = new Llibre("Dune","Ciència-ficció");
-        Llibre llibre9 = new Llibre("El Petit Príncep","Ficció");
-        Llibre llibre10 = new Llibre("La sombra del viento", "Drama");
+    private static void demoDataPublicacions() {
+        // No podem crear instàncies directes de Publicacio perquè ara és abstracta
 
-        llibres.add(llibre1);
-        llibres.add(llibre2);
-        llibres.add(llibre3);
-        llibres.add(llibre4);
-        llibres.add(llibre5);
-        llibres.add(llibre6);
-        llibres.add(llibre7);
-        llibres.add(llibre8);
-        llibres.add(llibre9);
-        llibres.add(llibre10);
+        // Llibres
+        Llibre llibre1 = new Llibre("El senyor dels anells", "J.R.R. Tolkien",
+                "1178", "Minotauro", "3a edició", "Fantasia");
+        Llibre llibre2 = new Llibre("1984", "George Orwell",
+                "326", "Debolsillo", "1a edició", "Ciència-ficció");
+        Llibre llibre3 = new Llibre("Don Quixot", "Miguel de Cervantes",
+                "863", "Aliança Editorial", "Edició especial", "Clàssics");
+        Llibre llibre4 = new Llibre("Harry Potter i la pedra filosofal", "J.K. Rowling",
+                "309", "Salamandra", "1a edició", "Fantasia");
+        Llibre llibre5 = new Llibre("Crim i càstig", "Fiódor Dostoievski",
+                "527", "Edicions 62", "2a edició", "Clàssics");
+
+        // CDs
+        CD cd1 = new CD("The Dark Side of the Moon", "Pink Floyd", "42:50", 10, "Rock clàssic");
+        CD cd2 = new CD("Thriller", "Michael Jackson", "42:19", 9, "Pop");
+        CD cd3 = new CD("Back in Black", "AC/DC", "42:11", 10, "Rock");
+        CD cd4 = new CD("Rumours", "Fleetwood Mac", "40:24", 11, "Rock");
+
+        // DVDs
+        DVD dvd1 = new DVD("El Padrino", "Francis Ford Coppola", "175 min", "Drama", "Pel·lícules clàssiques");
+        DVD dvd2 = new DVD("Interstellar", "Christopher Nolan", "169 min", "Ciència-ficció", "Pel·lícules modernes");
+        DVD dvd3 = new DVD("El laberinto del fauno", "Guillermo del Toro", "118 min", "Fantasía", "Pel·lícules internacionals");
+        DVD dvd4 = new DVD("Documental: Cosmos", "Carl Sagan", "60 min", "Documental", "Educatiu");
+
+        // Afegir totes les publicacions a la llista
+        publicacions.add(llibre1);
+        publicacions.add(llibre2);
+        publicacions.add(llibre3);
+        publicacions.add(llibre4);
+        publicacions.add(llibre5);
+        publicacions.add(cd1);
+        publicacions.add(cd2);
+        publicacions.add(cd3);
+        publicacions.add(cd4);
+        publicacions.add(dvd1);
+        publicacions.add(dvd2);
+        publicacions.add(dvd3);
+        publicacions.add(dvd4);
+
+        // Marcar alguns com a no disponibles
+        llibre1.setDisponible(false);
+        cd2.setDisponible(false);
+        dvd3.setDisponible(false);
     }
     private static void demoDataUser() {
         Usuari u1 = new Usuari("1", "unai", "6555", "major", "1234");
@@ -80,9 +105,9 @@ public class Biblioteca {
         usuaris.add(u1); usuaris.add(u2); usuaris.add(a1);
     }
     private static void demoDataReserva() {
-        Reserva r1 = new Reserva(llibres.get(0), usuaris.get(0));
-        Reserva r2 = new Reserva(llibres.get(1), usuaris.get(1));
-        Reserva r3 = new Reserva(llibres.get(2), usuaris.get(0));
+        Reserva r1 = new Reserva(publicacions.get(0), usuaris.get(0));
+        Reserva r2 = new Reserva(publicacions.get(1), usuaris.get(1));
+        Reserva r3 = new Reserva(publicacions.get(2), usuaris.get(0));
         reserves.add(r1); reserves.add(r2); reserves.add(r3);
     }
 
@@ -205,16 +230,16 @@ public class Biblioteca {
         r.modificarReserva();
     }
 
-    public static int printLlibresDispo() {
-        for (Llibre l : llibres) {
+    public static int printPublicacionsDispo() {
+        for (Publicacio l : publicacions) {
             if (l.isDisponible()){
                 System.out.println(l);
             }
         }
         return Integer.parseInt(input("Quin llibre vols reservar? (codi): "));
     }
-    public static void printLlibresById(){
-        for (Llibre l : llibres) {
+    public static void printPublicacionsById(){
+        for (Publicacio l : publicacions) {
             System.out.println(l.toString());
         }
     }
@@ -231,8 +256,8 @@ public class Biblioteca {
     }
 
     public static void reservar() {
-        int codi = printLlibresDispo();
-        Llibre l = getLlibreByCodi(codi);
+        int codi = printPublicacionsDispo();
+        Publicacio l = getPubliacacioByCodi(codi);
         assert l != null;
         if (l.isDisponible()) {
             Reserva n = new Reserva(l, actualUser);

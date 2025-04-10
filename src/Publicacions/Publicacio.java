@@ -1,18 +1,18 @@
+package Publicacions;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Llibre {
+public abstract class Publicacio {
     private static final AtomicInteger generadorCodi = new AtomicInteger(1);
     private String titol;
     private int codi;
     private String seccio;
-    private static int stockTotal;
     private boolean disponible;
 
-    public Llibre(String titol, String seccio) {
+    public Publicacio(String titol, String seccio) {
         this.titol = titol;
         this.codi = generadorCodi.getAndIncrement();
         this.seccio = seccio;
-        stockTotal = stockTotal + 1;
         this.disponible = true;
     }
 
@@ -40,14 +40,6 @@ public class Llibre {
         this.seccio = seccio;
     }
 
-    public int getStockTotal() {
-        return stockTotal;
-    }
-
-    public void setStockTotal(int stockTotal) {
-        this.stockTotal = stockTotal;
-    }
-
     public boolean isDisponible() {
         return disponible;
     }
@@ -57,8 +49,7 @@ public class Llibre {
     }
 
     @Override
-    public String toString() {
-        return "\nCodi: " + codi + " | Titol: " + titol +  " | Seccio: " + seccio;
-    }
+    public abstract String toString();
+
 
 }

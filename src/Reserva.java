@@ -1,3 +1,4 @@
+import Publicacions.Publicacio;
 import Users.Usuari;
 
 import java.time.LocalDate;
@@ -6,15 +7,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Reserva {
     private static final AtomicInteger generadorId = new AtomicInteger(1);
     private int id;
-    private Llibre llibre;
+    private Publicacio publicacio;
     private Usuari usuari;
     private LocalDate dataInici;
     private LocalDate dataFi;
 
-    public Reserva(Llibre llibre, Usuari usuari) {
-        Biblioteca.getLlibreByCodi(llibre.getCodi()).setDisponible(false);
+    public Reserva(Publicacio publicacio, Usuari usuari) {
+        Biblioteca.getPubliacacioByCodi(publicacio.getCodi()).setDisponible(false);
         this.id = generadorId.getAndIncrement();
-        this.llibre = llibre;
+        this.publicacio = publicacio;
         this.usuari = usuari;
         // Assignar la data actual
         this.dataInici = LocalDate.now();
@@ -31,12 +32,12 @@ public class Reserva {
         this.id = id;
     }
 
-    public Llibre getLlibre() {
-        return llibre;
+    public Publicacio getLlibre() {
+        return publicacio;
     }
 
-    public void setLlibre(Llibre llibre) {
-        this.llibre = llibre;
+    public void setLlibre(Publicacio publicacio) {
+        this.publicacio = publicacio;
     }
 
     public Usuari getUsuari() {
@@ -65,17 +66,17 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return id + " | Llibre: " + llibre.getTitol() + "\n\t\tUsuari:" + usuari.getNom()
+        return id + " | Llibre: " + publicacio.getTitol() + "\n\t\tUsuari:" + usuari.getNom()
                 + "\n\t\tData inici:" + dataInici + "\n\t\tData fi:" + dataFi + "\n";
     }
 
     public String consultaUser(){
-        return " | Llibre: " + llibre.getTitol() + "\n\t\tData inici:" + dataInici + "\n\t\tData fi:" + dataFi + "\n";
+        return " | Llibre: " + publicacio.getTitol() + "\n\t\tData inici:" + dataInici + "\n\t\tData fi:" + dataFi + "\n";
     }
 
     public void modificarReserva() {
-        Biblioteca.printLlibresById();
-        this.llibre = Biblioteca.getLlibreByCodi(Integer.parseInt(Biblioteca.input("Id llibre: ")));
+        Biblioteca.printPublicacionsById();
+        this.publicacio = Biblioteca.getPubliacacioByCodi(Integer.parseInt(Biblioteca.input("Id llibre: ")));
         Biblioteca.printUsuarisById();
         this.usuari = Biblioteca.getUsuariById(Biblioteca.input("Dni usuari: "));
     }
